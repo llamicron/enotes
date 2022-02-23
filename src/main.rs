@@ -1,12 +1,16 @@
 #![feature(proc_macro_hygiene, decl_macro)]
+#![allow(unused_variables, unused_imports)]
 
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate serde_json;
+
+extern crate rustbreak;
 
 // The Rocket JSON type, used to wrap types
 #[allow(unused)]
 use rocket::serde::{json::Json};
 
+pub mod db;
 pub mod note;
 use note::{Note, NoteID};
 

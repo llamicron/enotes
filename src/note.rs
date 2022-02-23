@@ -4,7 +4,7 @@ use serde::{Serialize, Deserialize};
 pub type NoteID = u32;
 
 // The definition for a Note
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Note {
     id: Option<NoteID>,
     title: String,
@@ -12,6 +12,10 @@ pub struct Note {
 }
 
 impl Note {
+    pub fn new(id: NoteID, title: &str, content: &str) -> Note {
+        Note { id: Some(id), title: String::from(title), content: String::from(content) }
+    }
+    
     pub fn id(&self) -> &Option<NoteID> {
         &self.id
     }
