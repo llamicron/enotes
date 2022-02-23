@@ -31,8 +31,8 @@ fn not_found() -> serde_json::Value {
 
 // Resource management ------
 
-#[get("/note/<id>")]
-fn get_note(id: NoteID) -> serde_json::Value {
+#[get("/note/<_id>")]
+fn get_note(_id: NoteID) -> serde_json::Value {
     // Retrieve the note from the database/storage
     // Hardcoded note for testing
     json!({
@@ -52,6 +52,7 @@ fn create_note(json_note: Json<Note>) -> serde_json::Value {
         "content": note.content()
     })
 }
+
 
 
 #[launch]

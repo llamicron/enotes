@@ -29,7 +29,7 @@ mod tests {
 
     fn test_note() -> Note {
         Note {
-            id: 0,
+            id: Some(0),
             title: String::from("Testing note"),
             content: String::from("Content of the note. This will be really long")
         }
