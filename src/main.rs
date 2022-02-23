@@ -53,11 +53,36 @@ fn create_note(json_note: Json<Note>) -> serde_json::Value {
     })
 }
 
+#[put("/note/<_id>", format = "json", data = "<json_note>")]
+fn update_note(_id: NoteID, json_note: Json<Note>) -> serde_json::Value {
+    let note = json_note.into_inner();
+
+    // find the note in the db by id (the id variable) and update it
+    // with the content of the PUTed note
+
+    println!("{:#?}", note);
+
+    json!({
+        "id": note.id().unwrap(),
+        "title": note.title(),
+        "content": note.content()
+    })
+}
+
+#[delete("/note/<_id>")]
+fn delete_note(_id: NoteID) -> serde_json::Value {
+    // Delete the note from the DB
+    json!({
+        "status": i32::from(200),
+        "msg": "note deleted"
+    })
+}
+
 
 
 #[launch]
 fn launch() -> _ {
     rocket::build()
         .register("/api/0.1.0", catchers![not_found])
-        .mount("/api/0.1.0", routes![index, get_note, create_note])
+        .mount("/api/0.1.0", routes![index, get_note, create_note, update_note, delete_note])
 }

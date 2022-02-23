@@ -12,6 +12,10 @@ pub struct Note {
 }
 
 impl Note {
+    pub fn id(&self) -> &Option<NoteID> {
+        &self.id
+    }
+
     pub fn title(&self) -> &str {
         &self.title
     }
