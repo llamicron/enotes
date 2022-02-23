@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use rustbreak::{MemoryDatabase, FileDatabase, deser::Yaml};
 use std::fs::File;
 
+
 use crate::{NoteID, Note};
 
 #[derive(Debug)]
@@ -9,7 +10,7 @@ pub struct DBError(String);
 
 pub type Result<T> = std::result::Result<T, DBError>;
 
-pub struct Database(FileDatabase<HashMap<NoteID, Note>, Yaml>);
+pub struct Database(pub FileDatabase<HashMap<NoteID, Note>, Yaml>);
 
 impl Database {
     pub fn connect(file_path: &str) -> Result<Database> {

@@ -6,9 +6,9 @@ pub type NoteID = u32;
 // The definition for a Note
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct Note {
-    id: Option<NoteID>,
-    title: String,
-    content: String,
+    pub id: Option<NoteID>,
+    pub title: String,
+    pub content: String,
 }
 
 impl Note {
