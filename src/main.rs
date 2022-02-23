@@ -16,6 +16,7 @@ use note::{Note, NoteID};
 #[get("/")]
 fn index() -> serde_json::Value {
     json!({
+        "status": i32::from(200),
         "msg": "ok!"
     })
 }
@@ -24,7 +25,8 @@ fn index() -> serde_json::Value {
 fn not_found() -> serde_json::Value {
     json!({
         "status": i32::from(404),
-        "msg": "route not found"
+        "msg": "route not found",
+        "data": {}
     })
 }
 
@@ -36,9 +38,13 @@ fn get_note(_id: NoteID) -> serde_json::Value {
     // Retrieve the note from the database/storage
     // Hardcoded note for testing
     json!({
-        "id": 0,
-        "title": "Testing note",
-        "content": "Here's the content of the note"
+        "status": i32::from(200),
+        "msg": "",
+        "data": {
+            "id": 0,
+            "title": "Testing note",
+            "content": "Here's the content of the note"
+        }
     })
 }
 
@@ -47,10 +53,15 @@ fn create_note(json_note: Json<Note>) -> serde_json::Value {
     let note = json_note.into_inner();
 
     json!({
-        "id": 1,
-        "title": note.title(),
-        "content": note.content()
+        "status": i32::from(200),
+        "msg": "",
+        "data": {
+            "id": 1,
+            "title": note.title(),
+            "content": note.content()
+        }
     })
+    
 }
 
 #[put("/note/<_id>", format = "json", data = "<json_note>")]
@@ -63,9 +74,13 @@ fn update_note(_id: NoteID, json_note: Json<Note>) -> serde_json::Value {
     println!("{:#?}", note);
 
     json!({
-        "id": note.id().unwrap(),
-        "title": note.title(),
-        "content": note.content()
+        "status": i32::from(200),
+        "msg": "note updated",
+        "data": {
+            "id": note.id().unwrap(),
+            "title": note.title(),
+            "content": note.content()
+        }
     })
 }
 
@@ -74,7 +89,8 @@ fn delete_note(_id: NoteID) -> serde_json::Value {
     // Delete the note from the DB
     json!({
         "status": i32::from(200),
-        "msg": "note deleted"
+        "msg": "note deleted",
+        "data": {}
     })
 }
 
